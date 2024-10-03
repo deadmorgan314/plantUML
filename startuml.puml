@@ -1,0 +1,22 @@
+@startuml
+actor Пользователь
+participant "Система интернет-магазина" as ShopSystem
+participant "Система платежей" as PaymentSystem
+participant "Система управления заказами" as OrderSystem
+
+Пользователь -> ShopSystem : Добавить в корзину
+Пользователь -> ShopSystem : Оформить заказ
+ShopSystem -> Пользователь : Отобразить форму
+Пользователь -> ShopSystem : Отправить заказ
+ShopSystem -> OrderSystem : Проверить наличие товара
+ShopSystem -> PaymentSystem : Запрос на оплату
+PaymentSystem --> ShopSystem : Результат платежа
+
+alt Платеж успешен
+    ShopSystem -> OrderSystem : Создать заказ
+    OrderSystem --> ShopSystem : Подтверждение заказа
+    ShopSystem -> Пользователь : Уведомление об успешном заказе
+else Платеж не успешен
+    ShopSystem -> Пользователь : Ошибка платежа
+end
+@enduml

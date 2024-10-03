@@ -1,0 +1,14 @@
+@startuml
+title Добавление продукта
+
+actor Client
+participant "API Server" as APIServer
+participant "Database" as DB
+
+Client -> APIServer : Запрос на добавление нового продукта
+APIServer -> DB : Создать продукт
+DB --> APIServer : Подтверждение создания продукта
+APIServer --> Client : Ответ с информацией о новом продукте
+
+
+@enduml
