@@ -1,0 +1,23 @@
+@startuml
+entity "Products" {
+  + id : INT <<PK>>
+  + name : VARCHAR
+  + price : DECIMAL
+  + category_id : INT <<FK>>
+}
+
+entity "Categories" {
+  + id : INT <<PK>>
+  + name : VARCHAR
+}
+
+entity "Orders" {
+  + id : INT <<PK>>
+  + product_id : INT <<FK>>
+  + quantity : INT
+  + order_date : DATETIME
+}
+
+Products --|> Categories : category_id
+Products --|> Orders : product_id
+@enduml
