@@ -1,5 +1,5 @@
 @startuml
-title Последовательность создания продукта с учетом ошибок
+title Диаграмма создания продукта с учетом ошибок
 actor Client
 participant "API Server" as APIServer
 participant "Validation Service" as Validation
