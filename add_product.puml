@@ -1,0 +1,23 @@
+@startuml
+title Последовательность создания продукта с учетом ошибок
+actor Client
+participant "API Server" as APIServer
+participant "Validation Service" as Validation
+participant "Database" as DB
+Client -> APIServer : Запрос на создание нового продукта
+APIServer -> Validation : Проверка данных продукта
+Validation --> APIServer : Данные валидны
+APIServer -> DB : Создать продукт
+DB --> APIServer : Подтверждение создания продукта
+APIServer --> Client : Ответ с информацией о новом продукте
+Client -> APIServer : Запрос на создание нового продукта
+APIServer -> Validation : Проверка данных продукта
+Validation --> APIServer : Ошибка валидации
+APIServer --> Client : Ошибка: данные не валидны
+Client -> APIServer : Запрос на создание нового продукта
+APIServer -> Validation : Проверка данных продукта
+Validation --> APIServer : Данные валидны
+APIServer -> DB : Создать продукт
+DB --> APIServer : Ошибка базы данных
+APIServer --> Client : Ошибка: не удалось создать продукт
+@enduml
