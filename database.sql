@@ -85,3 +85,16 @@ Products (1) ↔ (∞) OrderDetails
 Orders (1) ↔ (∞) Payments
 Products (∞) ↔ (1) Categories
 */
+
+-- Индексируем первичный ключ
+CREATE INDEX idx_product_id ON Products(product_id);
+
+-- Индексируем внешние ключи для ускорения JOIN операций
+CREATE INDEX idx_customer_id ON Orders(customer_id);
+CREATE INDEX idx_product_id ON OrderDetails(product_id);
+
+-- Индексируем часто используемые поля для выборки и сортировки
+CREATE INDEX idx_order_date ON Orders(order_date);
+CREATE INDEX idx_price ON Products(price);
+CREATE INDEX idx_category_id ON Products(category_id);
+
