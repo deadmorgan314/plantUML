@@ -1,0 +1,75 @@
+@startuml
+entity Customers {
+    + customer_id : INT <<PK>>
+    --
+    first_name : VARCHAR(100)
+    last_name : VARCHAR(100)
+    email : VARCHAR(150)
+    phone : VARCHAR(15)
+    address : VARCHAR(255)
+    city : VARCHAR(100)
+    country : VARCHAR(100)
+    postal_code : VARCHAR(10)
+    created_at : TIMESTAMP
+}
+
+entity Products {
+    + product_id : INT <<PK>>
+    --
+    name : VARCHAR(255)
+    description : TEXT
+    price : DECIMAL(10, 2)
+    stock : INT
+    category_id : INT <<FK>>
+    created_at : TIMESTAMP
+}
+
+entity Categories {
+    + category_id : INT <<PK>>
+    --
+    category_name : VARCHAR(100)
+}
+
+entity Orders {
+    + order_id : INT <<PK>>
+    --
+    customer_id : INT <<FK>>
+    order_date : TIMESTAMP
+    total : DECIMAL(10, 2)
+    status : VARCHAR(50)
+    shipping_id : INT <<FK>>
+}
+
+entity OrderDetails {
+    + order_detail_id : INT <<PK>>
+    --
+    order_id : INT <<FK>>
+    product_id : INT <<FK>>
+    quantity : INT
+    price : DECIMAL(10, 2)
+}
+
+entity Payments {
+    + payment_id : INT <<PK>>
+    --
+    order_id : INT <<FK>>
+    payment_date : TIMESTAMP
+    amount : DECIMAL(10, 2)
+    payment_method : VARCHAR(50)
+}
+
+entity Shipping {
+    + shipping_id : INT <<PK>>
+    --
+    shipping_method : VARCHAR(100)
+    shipping_cost : DECIMAL(10, 2)
+}
+
+' Relationships
+Customers ||--o{ Orders : places
+Orders ||--o{ OrderDetails : contains
+OrderDetails ||--o| Products : includes
+Orders ||--|| Payments : has
+Products }o--|| Categories : belongs to
+Orders ||--|| Shipping : ships via
+@enduml
